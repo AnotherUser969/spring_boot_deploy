@@ -29,23 +29,6 @@
      debug:
        msg: Some error in 'Configure systemd unit for java application'
 
-- name: Generate a Self Signed OpenSSL certificate
-  block:
-     - name: Generate the csr and privatekey
-       openssl_certificate:
-          path: '/etc/ssl/certs/nginx-selfsigned.crt'
-          privatekey_path: '/etc/ssl/private/nginx-selfsigned.key'
-          csr_path: '/etc/ssl/certs/nginx-selfsigned.crt'
-          provider: selfsignet
-     - name: Generate DH Parameters with a different size (2048 bits)
-       openssl_dhparam:
-          path: '/etc/nginx/dhparam.pem'
-          size: 2048
-  rescue:
-      name: Print with errors
-      debug:
-         msg: Some error in 'Generate a Self Signed OpenSSL certificate'
-
 - name: Configure the nginx
   block:
      - name: Copy j2 template with nginx conf
@@ -62,20 +45,6 @@
            owner: user
            group: user
            state: link
-      - name: Copy self-signet.conf to snippets
-        file:
-           src: '{{ self-signet.conf }}'
-           dest: '/etc/nginx/snippets/self-signed.conf'
-           user: user
-           group: user
-           mode: 0644
-      - name: Copy self-params.conf to snippets
-        file:
-           src: '{{ self-params.conf }}'
-           dest: '/etc/nginx/snippets/ssl-params.conf'
-           user: user
-           group: user
-           mode: 0644
       - name: Restart nginx
         service:
            name: nginx
