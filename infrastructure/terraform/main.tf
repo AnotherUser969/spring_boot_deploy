@@ -4,15 +4,7 @@ terraform {
       source = "yandex-cloud/yandex"
     }
   }
-}
-
-provider "yandex" {
-  zone                     = "ru-central1-b"
-  service_account_key_file = "/home/user/key.json"
-  folder_id                = "b1g3a65ovr0uv7n30pq7"
-}
-
- backend "s3" {
+   backend "s3" {
     endpoint   = "storage.yandexcloud.net"
     bucket     = "terraform-state-backet-nodes"
     region     = "ru-central1-b"
@@ -21,6 +13,12 @@ provider "yandex" {
     skip_region_validation      = true
     skip_credentials_validation = true
   }
+}
+
+provider "yandex" {
+  zone                     = "ru-central1-b"
+  service_account_key_file = "/home/user/key.json"
+  folder_id                = "b1g3a65ovr0uv7n30pq7"
 }
 
 resource "yandex_compute_instance" "app_servers" {
