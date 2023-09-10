@@ -1,3 +1,44 @@
-withCredentials([string(credentialsId: 'SA_ACCESS_KEY', variable: 'ACCESS_KEY'), string(credentialsId: 'SA_SECRET_KEY', variable: 'SECRET_KEY')]) {
-    // some block
+pipeline {
+    agent any
+    tools {
+        terraform "terraform"
+    }
+    stages {
+        stage('Check SCM') {
+            steps {
+                git branch: 'main', url: 'https://github.com/AnotherUser969/spring_boot_deploy.git'
+            }
+        }
+	stage('Init') {
+	    steps {
+	    sh label: '', script: 'cp ./infrastructure/terraform/.terraformrc ~/.terraformrc'
+	    withCredentials(
+	        [string(credentialsId: 'SA_ACCESS_KEY', variable: 'ACCESS_KEY'), 
+	        string(credentialsId: 'SA_SECRET_KEY', variable: 'SECRET_KEY')]) {
+	        sh label: '', script: 'pwd'
+            sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY" -no-color'
+            }
+	    }
+	}
+	stage('Plan') {
+	    steps {
+	        //sh label: '', script: 'terraform plan -chdir="./infrastructure/terraform"'
+	        sh label: '', script: 'terraform -chdir="./infrastructure/terraform" plan -no-color'
+	    }
+	}
+	stage('Validate Apply') {
+	    input {
+	        message "Do you want to apply this plan?"
+	        ok "Apply plan"
+	    }
+	    steps {
+	        sh label: '', script: 'echo Apply accepted'
+	    }
+	}
+	stage('Apply') {
+	    steps {
+	        sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -auto-approve -co-color'
+	    }
+	}
+    }
 }
