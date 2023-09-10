@@ -1,0 +1,3 @@
+withCredentials([string(credentialsId: 'SA_ACCESS_KEY', variable: 'ACCESS_KEY'), string(credentialsId: 'SA_SECRET_KEY', variable: 'SECRET_KEY')]) {
+    // some block
+}
