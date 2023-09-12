@@ -47,8 +47,8 @@ resource "yandex_compute_instance" "app_servers" {
   }
 
   metadata = {
-    ssh-keys = "${file("$var.public_key_path")}"
-    user-data = "${file("$var.user_data_path")}"
+    ssh-keys = "${file("${var.public_key_path}")}"
+    user-data = "${file("${var.user_data_path}")}"
   }
 }
 
@@ -77,8 +77,8 @@ resource "yandex_compute_instance" "monitoring" {
   }
 
   metadata = {
-    ssh-keys = "${file("$var.public_key_path")}"
-    user-data = "${file("$var.user_data_path")}"
+    ssh-keys = "${file("${var.public_key_path}")}"
+    user-data = "${file("${var.user_data_path}")}"
   }
 }
 
@@ -107,8 +107,8 @@ resource "yandex_compute_instance" "load_balancer" {
   }
 
   metadata = {
-    ssh-keys = "${file("$var.public_key_path")}"
-    user-data = "${file("$var.user_data_path")}"
+    ssh-keys = "${file("${var.public_key_path}")}"
+    user-data = "${file("${var.user_data_path}")}"
   }
 }
 
