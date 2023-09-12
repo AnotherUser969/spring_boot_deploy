@@ -6,7 +6,7 @@ terraform {
   }
    backend "s3" {
     endpoint   = "storage.yandexcloud.net"
-    bucket     = "${var.backet_name}"
+    bucket     = "terraform-state-backet-nodes"
     region     = "ru-central1-b"
     key        = "terraform.tfstate"
 
