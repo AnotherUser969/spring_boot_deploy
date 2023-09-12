@@ -1,10 +1,10 @@
 variable "public_key_path" {
   description = "Path to public key file"
-  default     = "./infrastructure/terraform/matadata/cloud-ssh.pub"
+  default     = "./infrastructure/terraform/metadata/cloud-ssh.pub"
 }
 
 variable "user_data_path" {
-	default = "./infrastructure/terraform/matadata"
+	default = "./infrastructure/terraform/metadata/userdata"
 }
 
 variable "service_account_key_file" {
