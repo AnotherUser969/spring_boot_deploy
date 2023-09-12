@@ -30,7 +30,7 @@ resource "yandex_compute_instance" "app_servers" {
   resources {
     cores  = "${var.instance_cores_app}"
     memory = "${var.instance_memory_app}"
-    core_fraction = ${var.instance_core_fraction_app}"
+    core_fraction = "${var.instance_core_fraction_app}"
   }
 
   boot_disk {
