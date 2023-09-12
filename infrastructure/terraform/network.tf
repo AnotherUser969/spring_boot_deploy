@@ -22,5 +22,5 @@ resource "yandex_vpc_route_table" "rt" {
 }
 
 locals {
-   prod_subnet_ids = yandex_vpc_subnet.prod_subnet.*.id
+   prod_subnet_ids = yandex_vpc_subnet.subnet.*.id
 }
