@@ -4,11 +4,7 @@ variable "public_key_path" {
 }
 
 variable "user_data_path" {
-	default = ./infrastructure/terraform/matadata
-}
-
-variable "backet_name" {
-	default = "terraform-state-backet-nodes"
+	default = "./infrastructure/terraform/matadata"
 }
 
 variable "service_account_key_file" {
