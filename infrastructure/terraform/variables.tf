@@ -8,7 +8,7 @@ variable "user_data_path" {
 }
 
 variable "service_account_key_file" {
-	default = "~/key.json"
+	#default = "~/key.json"
 }
 
 variable "folder_id" {
