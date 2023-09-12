@@ -42,7 +42,7 @@ resource "yandex_compute_instance" "app_servers" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.prod_subnet.id
+    subnet_id = yandex_vpc_subnet.subnet.id
     #nat       = true
   }
 
@@ -72,7 +72,7 @@ resource "yandex_compute_instance" "monitoring" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.prod_subnet.id
+    subnet_id = yandex_vpc_subnet.subnet.id
     nat       = true
   }
 
@@ -102,7 +102,7 @@ resource "yandex_compute_instance" "load_balancer" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.prod_subnet.id
+    subnet_id = yandex_vpc_subnet.subnet.id
     nat       = true
   }
 
