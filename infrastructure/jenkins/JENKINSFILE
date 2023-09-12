@@ -37,7 +37,9 @@ pipeline {
 	}
 	stage('Apply') {
 	    steps {
-	        sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -auto-approve -co-color'
+		withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
+	        	sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -var="service_account_key_file=$SERVICE_ACCOUNT_KEY_FILE" -auto-approve -co-color'
+	    }
 	    }
 	}
     }
