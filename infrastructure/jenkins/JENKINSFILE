@@ -15,15 +15,12 @@ pipeline {
 	    withCredentials(
 	        [string(credentialsId: 'SA_ACCESS_KEY', variable: 'ACCESS_KEY'), 
 	        string(credentialsId: 'SA_SECRET_KEY', variable: 'SECRET_KEY')]) {
-	        sh label: '', script: 'pwd'
-            sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY" -no-color'
+                sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY" -no-color'
             }
 	    }
 	}
 	stage('Plan') {
 	    steps {
-	        //sh label: '', script: 'terraform plan -chdir="./infrastructure/terraform"'
-	        //sh label: '', script: 'pwd'
 	        withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
 	            sh label: '', script: 'terraform -chdir="./infrastructure/terraform" plan -var="service_account_key_file=$SERVICE_ACCOUNT_KEY_FILE" -no-color'
             }
