@@ -23,7 +23,10 @@ pipeline {
 	stage('Plan') {
 	    steps {
 	        //sh label: '', script: 'terraform plan -chdir="./infrastructure/terraform"'
-	        sh label: '', script: 'terraform -chdir="./infrastructure/terraform" plan -no-color'
+	        //sh label: '', script: 'pwd'
+	        withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
+	            sh label: '', script: 'terraform -chdir="./infrastructure/terraform" plan -var="service_account_key_file=$SERVICE_ACCOUNT_KEY_FILE" -no-color'
+            }
 	    }
 	}
 	stage('Validate Apply') {
