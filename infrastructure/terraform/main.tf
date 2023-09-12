@@ -60,7 +60,7 @@ resource "yandex_compute_instance" "monitoring" {
   resources {
     cores  = "${var.instance_cores_mon}"
     memory = "${var.instance_memory_mon}"
-    core_fraction = ${var.instance_core_fraction_mon}"
+    core_fraction = "${var.instance_core_fraction_mon}"
   }
 
   boot_disk {
@@ -90,7 +90,7 @@ resource "yandex_compute_instance" "load_balancer" {
   resources {
     cores  = "${var.instance_cores_lb}"
     memory = "${var.instance_memory_lb}"
-    core_fraction = ${var.instance_core_fraction_lb}"
+    core_fraction = "${var.instance_core_fraction_lb}"
   }
 
   boot_disk {
