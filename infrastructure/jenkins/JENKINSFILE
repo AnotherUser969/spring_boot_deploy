@@ -42,5 +42,16 @@ pipeline {
 	    }
 	    }
 	}
+	stage('Build') {
+	    steps {
+		sh "mvn -f ./application clean package"
+	    {
+            post {
+                success {
+                    junit '**/application/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'application/target/*.jar'
+                }
+            }
+	}
     }
 }
