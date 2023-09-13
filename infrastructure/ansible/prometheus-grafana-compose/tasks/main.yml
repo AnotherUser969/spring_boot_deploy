@@ -1,2 +1,15 @@
 ---
 # tasks file for prometheus-grafana-compose
+    - name: Pull docker images
+      docker_compose:
+            project_src:
+            pull: yes
+            
+    - name: Run docker compose
+      docker_compose:
+            project_src:
+       register: output
+       
+    - name: Show results
+      debug:
+        var: output
