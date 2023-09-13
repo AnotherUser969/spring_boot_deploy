@@ -1,0 +1,10 @@
+[Unit]
+Description=Node Exporter Version 1.6.1
+After=network-online.target
+[Service]
+User=exporter_user
+Group=exporters
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+[Install]
+WantedBy=multi-user.target
