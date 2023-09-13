@@ -1,2 +1,53 @@
 ---
 # tasks file for node-exporter
+    - name: Create prometheus exporter user
+      user:
+         name: exporter_user
+         groups: exporters
+         append: true
+         shell: /usr/bin/noloogin
+         system: true
+         create_home: false
+    
+    - name: Download and unzip node_exporter
+      unarchive: 
+         src: "https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz"
+         dest: /tmp/
+         remote_src: true
+         validate_certs: false
+    
+    - name:  Copy the bin to dest
+      copy:
+         src: "/tmp/node_exporter-1.6.1.linux-amd64/node_exporter"
+         dest: "/usr/local/bin/node_exporter"
+         owner: exporter_user
+         group: exporters
+         mode: 0755
+    
+    - name: Remove
+      file:
+         path: "/tmp/node_exporter-1.6.6.linux-amd64/"
+         state: absent
+         
+    - name: Set node exporter service
+      template:
+         src: node_exporter.service.j2
+         dest: /etc/systemd/system/node_exporter.service
+         owner: root
+         group: root
+         mode: 0755
+      notify: restart_node_exporter
+      
+    - name: Start service always
+      systemd:
+         name: node_exporter
+         state: started
+         enabled: yes
+         
+  handlers:
+    - name: restart_node_exporter
+      systemd:
+         name: node_exporter 
+         state: restarted
+         daemon_reload: yes
+         enabled: yes
