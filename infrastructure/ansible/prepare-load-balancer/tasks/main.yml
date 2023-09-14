@@ -35,29 +35,29 @@
            user: {{ user }}
            group: {{ group }}
            mode: 0644
-      - name: Create a symbolic link to sites-enabled
-        file:
+     - name: Create a symbolic link to sites-enabled
+       file:
            src: '/etc/nginx/sites-available/load_balance'
            dest: '/etc/nginx/sites-enabled/load_balance'
            owner: "{{ user }}"
            group: "{{ group }}"
            state: link
-      - name: Copy self-signet.conf to snippets
-        file:
+     - name: Copy self-signet.conf to snippets
+       file:
            src: '{{ self-signet.conf }}'
            dest: '/etc/nginx/snippets/self-signed.conf'
            user: "{{ user }}"
            group: "{{ group }}"
            mode: 0644
-      - name: Copy self-params.conf to snippets
-        file:
+     - name: Copy self-params.conf to snippets
+       file:
            src: '{{ self-params.conf }}'
            dest: '/etc/nginx/snippets/ssl-params.conf'
            user: "{{ user }}"
            group: "{{ group }}"
            mode: 0644
-      - name: Restart nginx
-        service:
+     - name: Restart nginx
+       service:
            name: nginx
            state: restarted
   rescue:
