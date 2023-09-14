@@ -1,2 +1,6 @@
 ---
 # vars file for node-exporter
+exporter_user: exporter_user
+exporter_group: exporters
+node_exporter_version: 1.6.1
+service_name: node_exporter
