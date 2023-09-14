@@ -3,3 +3,4 @@
 user: user
 group: user
 service_name: java-application
+java-application_path: ~/application.jar
