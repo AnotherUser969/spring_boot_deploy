@@ -1,2 +1,4 @@
 ---
 # vars file for prepare_server
+user: user
+group: user
