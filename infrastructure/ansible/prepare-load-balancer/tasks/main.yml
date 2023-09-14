@@ -32,29 +32,29 @@
        template:
            src: "{{ nginx_conf.j2 }}"
            dest: '/etc/nginx/sites-available/load_balance'
-           user: user
-           group: user
+           user: {{ user }}
+           group: {{ group }}
            mode: 0644
       - name: Create a symbolic link to sites-enabled
         file:
            src: '/etc/nginx/sites-available/load_balance'
            dest: '/etc/nginx/sites-enabled/load_balance'
-           owner: user
-           group: user
+           owner: {{ user }}
+           group: {{ group }}
            state: link
       - name: Copy self-signet.conf to snippets
         file:
            src: '{{ self-signet.conf }}'
            dest: '/etc/nginx/snippets/self-signed.conf'
-           user: user
-           group: user
+           user: {{ user }}
+           group: {{ group }}
            mode: 0644
       - name: Copy self-params.conf to snippets
         file:
            src: '{{ self-params.conf }}'
            dest: '/etc/nginx/snippets/ssl-params.conf'
-           user: user
-           group: user
+           user: {{ user }}
+           group: {{ group }}
            mode: 0644
       - name: Restart nginx
         service:
