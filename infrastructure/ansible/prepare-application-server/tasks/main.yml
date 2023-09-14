@@ -35,15 +35,15 @@
        template:
            src: "{{ nginx_conf.j2 }}"
            dest: '/etc/nginx/sites-available/java-app'
-           user: {{ user }}
-           group: {{ group }}
+           user: "{{ user }}"
+           group: "{{ group }}"
            mode: 0644
       - name: Create a symbolic link to sites-enabled
         file:
            src: '/etc/nginx/sites-available/java-app'
            dest: '/etc/nginx/sites-enabled/java-app'
-           owner: {{ user }}
-           group: {{ group }}
+           owner: "{{ user }}"
+           group: "{{ group }}"
            state: link
       - name: Restart nginx
         service:
