@@ -1,2 +1,8 @@
 ---
 # handlers file for nginx-exporter
+    - name: restart_nginx_exporter
+      systemd:
+         name: nginx_exporter 
+         state: restarted
+         daemon_reload: yes
+         enabled: yes
