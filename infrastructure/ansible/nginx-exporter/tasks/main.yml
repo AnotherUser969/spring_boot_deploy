@@ -2,8 +2,8 @@
 # tasks file for nginx-exporter
     - name: Create prometheus exporter user
       user:
-         name: exporter_user
-         groups: exporters
+         name: {{ exporter_user }}
+         groups: {{ exporter_group }}
          append: true
          shell: /usr/bin/noloogin
          system: true
@@ -11,7 +11,7 @@
     
     - name: Download and unzip nginx_exporter
       unarchive: 
-         src: "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.11.0/nginx-prometheus-exporter_0.11.0_linux_amd64.tar.gz"
+         src: "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v{{ nginx_exporter_version }}/nginx-prometheus-exporter_{{ nginx_exporter_version }}_linux_amd64.tar.gz"
          dest: /tmp/
          remote_src: true
          validate_certs: false
@@ -20,8 +20,8 @@
       copy:
          src: "/tmp/nginx_prometheus_exporter"
          dest: "/usr/local/bin/nginx_prometheus_exporter"
-         owner: exporter_user
-         group: exporters
+         owner: {{ exporter_user }}
+         group: {{ exporter_group }}
          mode: 0755
     
     - name: Remove
@@ -32,7 +32,7 @@
     - name: Set nginx exporter service
       template:
          src: nginx_exporter.service.j2
-         dest: /etc/systemd/system/nginx_exporter.service
+         dest: /etc/systemd/system/{{ nginx_exporter }}.service
          owner: root
          group: root
          mode: 0755
@@ -40,6 +40,6 @@
       
     - name: Start service always
       systemd:
-         name: nginx_exporter
+         name: {{ nginx_exporter }}
          state: started
          enabled: yes
