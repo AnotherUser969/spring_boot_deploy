@@ -14,7 +14,7 @@
   block:
      - name: Copy j2 template with systemd unit
        tempalate:
-            src: "{{ systemd_java_unit_j2  }}"
+            src: "{{ systemd_java_unit.j2 }}"
             dest: '/etc/systemd/system/java-application.service'
             user: user
             group: user
@@ -33,7 +33,7 @@
   block:
      - name: Copy j2 template with nginx conf
        template:
-           src: "{{ nginx_conf_j2 }}"
+           src: "{{ nginx_conf.j2 }}"
            dest: '/etc/nginx/sites-available/java-app'
            user: user
            group: user
