@@ -1,0 +1,20 @@
+- hosts: application_servers
+  become: yes
+  roles:
+      - prepare-application-server
+      - node-exporter
+      - nginx-exporter
+
+- hosts: load_balancer
+  become: yes
+  roles:
+      - prepare-load-balancer
+      - node-exporter
+      - nginx-exporter
+
+- hosts: monotoring
+  become: yes
+  roles:
+      - install-docker
+      - prometheus-grafana-compose
+      - node-exporter
