@@ -2,3 +2,4 @@
 # vars file for prepare_server
 user: user
 group: user
+service_name: java-application
