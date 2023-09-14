@@ -15,13 +15,13 @@
      - name: Copy j2 template with systemd unit
        tempalate:
             src: "{{ systemd_java_unit.j2 }}"
-            dest: '/etc/systemd/system/java-application.service'
-            user: user
-            group: user
+            dest: '/etc/systemd/system/{{ service_name }}.service'
+            user: {{ user }}
+            group: {{ group }}
             mode: 0644
       - name: Set systemd unit enabled and started
         service:
-            name: 'java-application.service'
+            name: '{{ service_name }}.service'
             enabled: yes
             state: started
   rescue:
@@ -35,15 +35,15 @@
        template:
            src: "{{ nginx_conf.j2 }}"
            dest: '/etc/nginx/sites-available/java-app'
-           user: user
-           group: user
+           user: {{ user }}
+           group: {{ group }}
            mode: 0644
       - name: Create a symbolic link to sites-enabled
         file:
            src: '/etc/nginx/sites-available/java-app'
            dest: '/etc/nginx/sites-enabled/java-app'
-           owner: user
-           group: user
+           owner: {{ user }}
+           group: {{ group }}
            state: link
       - name: Restart nginx
         service:
