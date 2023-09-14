@@ -2,8 +2,8 @@
 # tasks file for node-exporter
     - name: Create prometheus exporter user
       user:
-         name: exporter_user
-         groups: exporters
+         name: {{ exporter_user }}
+         groups: {{ exporter_group }}
          append: true
          shell: /usr/bin/noloogin
          system: true
@@ -11,28 +11,28 @@
     
     - name: Download and unzip node_exporter
       unarchive: 
-         src: "https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz"
+         src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
          dest: /tmp/
          remote_src: true
          validate_certs: false
     
     - name:  Copy the bin to dest
       copy:
-         src: "/tmp/node_exporter-1.6.1.linux-amd64/node_exporter"
+         src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/node_exporter"
          dest: "/usr/local/bin/node_exporter"
-         owner: exporter_user
-         group: exporters
+         owner: {{ exporter_user }}
+         group: {{ exporter_group }}
          mode: 0755
     
     - name: Remove
       file:
-         path: "/tmp/node_exporter-1.6.6.linux-amd64/"
+         path: "/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/"
          state: absent
          
     - name: Set node exporter service
       template:
          src: node_exporter.service.j2
-         dest: /etc/systemd/system/node_exporter.service
+         dest: /etc/systemd/system/{{ service_name }}.service
          owner: root
          group: root
          mode: 0755
@@ -40,14 +40,14 @@
       
     - name: Start service always
       systemd:
-         name: node_exporter
+         name: {{ service_name }}
          state: started
          enabled: yes
          
   handlers:
     - name: restart_node_exporter
       systemd:
-         name: node_exporter 
+         name: {{ service_name }} 
          state: restarted
          daemon_reload: yes
          enabled: yes
