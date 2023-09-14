@@ -1,9 +1,9 @@
 [Unit]
-Description=Node Exporter Version 0.11.0
+Description=Node Exporter Version {{ nginx_exporter_version }}
 After=network-online.target
 [Service]
-User=exporter_user
-Group=exporters
+User={{ exporter_user }}
+Group={{ exporter_group }}
 Type=simple
 ExecStart=/usr/local/bin/nginx-prometheus-exporter -nginx.scrape-uri=http://127.0.0.1:8080/stub_status
 [Install]
