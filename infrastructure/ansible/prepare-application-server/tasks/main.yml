@@ -27,7 +27,7 @@
   rescue:
     - name: Print with errors
       debug:
-        msg: Some error in 'Configure systemd unit for java application'
+        msg: 'Some error in 'Configure systemd unit for java application'
 
 - name: Configure the nginx
   block:
@@ -52,4 +52,4 @@
   rescue:
     - name: Print with errors
       debug:
-        msg: Some error in 'Configure the nginx conf file'
+        msg: 'Some error in 'Configure the nginx conf file'
