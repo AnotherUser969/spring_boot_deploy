@@ -45,8 +45,8 @@
            owner: "{{ user }}"
            group: "{{ group }}"
            state: link
-      - name: Restart nginx
-        service:
+     - name: Restart nginx
+       service:
            name: nginx
            state: restarted
   rescue:
