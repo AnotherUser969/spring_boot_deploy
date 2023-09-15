@@ -23,8 +23,8 @@
  
     - name:  Copy the bin to dest
       copy:
-         src: "/tmp/nginx_prometheus_exporter"
-         dest: "/usr/local/bin/nginx_prometheus_exporter"
+         src: "/tmp/nginx-prometheus-exporter"
+         dest: "/usr/local/bin/nginx-prometheus-exporter"
          owner: "{{ exporter_user }}"
          group: "{{ exporter_group }}"
          remote_src: true
@@ -32,7 +32,7 @@
     
     - name: Remove
       file:
-         path: "/tmp/nginx_prometheus_exporter"
+         path: "/tmp/nginx-prometheus-exporter"
          state: absent
          
     - name: Set nginx exporter service
