@@ -30,7 +30,7 @@
   block:
      - name: Copy j2 template with nginx conf
        template:
-           src: "{{ nginx_conf.j2 }}"
+           src: 'nginx_conf.j2'
            dest: '/etc/nginx/sites-available/load_balance'
            user: "{{ user }}"
            group: "{{ group }}"
