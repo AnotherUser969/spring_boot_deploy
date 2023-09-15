@@ -1,6 +1,6 @@
     upstream app_servers {
          least_conn;
-		 {% for host in groups['app_servers'] %}
+		 {% for host in groups['application_servers'] %}
 			server {{ hostvars[host]['ansible_facts']['default_ipv4']['address'] }};
 		 {% endfor %}
     }
