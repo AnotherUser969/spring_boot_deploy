@@ -16,7 +16,7 @@
       template:
             src: 'systemd_java_unit.j2'
             dest: '/etc/systemd/system/{{ service_name }}.service'
-            user: "{{ user }}"
+            owner: "{{ user }}"
             group: "{{ group }}"
             mode: 0644
     - name: Set systemd unit enabled and started
@@ -35,7 +35,7 @@
        template:
            src: 'nginx_conf.j2'
            dest: '/etc/nginx/sites-available/java-app'
-           user: "{{ user }}"
+           owner: "{{ user }}"
            group: "{{ group }}"
            mode: 0644
      - name: Create a symbolic link to sites-enabled
