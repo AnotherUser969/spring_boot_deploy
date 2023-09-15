@@ -40,6 +40,6 @@
       
     - name: Start service always
       systemd:
-          name: {{ nginx_exporter }}
+          name: "{{ nginx_exporter }}"
           state: started
           enabled: yes
