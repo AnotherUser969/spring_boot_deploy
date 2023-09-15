@@ -13,7 +13,7 @@
 - name: Configure systemd unit for java application
   block:
     - name: Copy j2 template with systemd unit
-      tempalate:
+      template:
             src: "{{ systemd_java_unit.j2 }}"
             dest: '/etc/systemd/system/{{ service_name }}.service'
             user: "{{ user }}"
@@ -25,9 +25,9 @@
             enabled: yes
             state: started
   rescue:
-     name: Print with errors
-     debug:
-       msg: Some error in 'Configure systemd unit for java application'
+    - name: Print with errors
+      debug:
+        msg: Some error in 'Configure systemd unit for java application'
 
 - name: Configure the nginx
   block:
@@ -50,6 +50,6 @@
            name: nginx
            state: restarted
   rescue:
-     name: Print with errors
-     debug:
-       msg: Some error in 'Configure the nginx conf file'
+    - name: Print with errors
+      debug:
+        msg: Some error in 'Configure the nginx conf file'
