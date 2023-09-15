@@ -2,8 +2,8 @@
 # tasks file for node-exporter
     - name: Create prometheus exporter user
       user:
-         name: {{ exporter_user }}
-         groups: {{ exporter_group }}
+         name: "{{ exporter_user }}"
+         groups: "{{ exporter_group }}"
          append: true
          shell: /usr/bin/noloogin
          system: true
