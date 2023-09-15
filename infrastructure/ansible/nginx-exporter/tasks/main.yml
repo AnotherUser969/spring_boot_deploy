@@ -16,30 +16,30 @@
          remote_src: true
          validate_certs: false
  
-     - name:  Copy the bin to dest
-       copy:
+    - name:  Copy the bin to dest
+      copy:
          src: "/tmp/nginx_prometheus_exporter"
          dest: "/usr/local/bin/nginx_prometheus_exporter"
          owner: "{{ exporter_user }}"
          group: "{{ exporter_group }}"
          mode: 0755
     
-     - name: Remove
-       file:
+    - name: Remove
+      file:
          path: "/tmp/nginx_prometheus_exporter"
          state: absent
          
-     - name: Set nginx exporter service
-       template:
+    - name: Set nginx exporter service
+      template:
           src: nginx_exporter.service.j2
           dest: /etc/systemd/system/{{ nginx_exporter }}.service
           owner: root
           group: root
           mode: 0755
-       notify: restart_nginx_exporter
+      notify: restart_nginx_exporter
       
-     - name: Start service always
-       systemd:
+    - name: Start service always
+      systemd:
           name: {{ nginx_exporter }}
           state: started
           enabled: yes
