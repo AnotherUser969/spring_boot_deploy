@@ -14,7 +14,7 @@ User={{ user }}
 # EnvironmentFile= points to the environment variables needed by the executable in this unit file
 #EnvironmentFile=/home/ubuntu/todo-app.config
 # ExecStart= the exact command, or application to be run when this unit starts
-ExecStart=/usr/bin/java -jar {{ java-application_path }} SuccessExitStatus=143
+ExecStart=/usr/bin/java -jar {{ java_application_path }} SuccessExitStatus=143
 # Restart= if the unit should restart after failing
 Restart=always
 
