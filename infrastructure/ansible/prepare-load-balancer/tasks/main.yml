@@ -16,7 +16,7 @@
           path: '/etc/ssl/certs/nginx-selfsigned.crt'
           privatekey_path: '/etc/ssl/private/nginx-selfsigned.key'
           csr_path: '/etc/ssl/certs/nginx-selfsigned.crt'
-          provider: selfsignet
+          provider: selfsigned
      - name: Generate DH Parameters with a different size (2048 bits)
        openssl_dhparam:
           path: '/etc/nginx/dhparam.pem'
