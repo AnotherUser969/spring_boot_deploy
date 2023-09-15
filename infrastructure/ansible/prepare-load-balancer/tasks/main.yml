@@ -32,8 +32,8 @@
        template:
            src: "{{ nginx_conf.j2 }}"
            dest: '/etc/nginx/sites-available/load_balance'
-           user: {{ user }}
-           group: {{ group }}
+           user: "{{ user }}"
+           group: "{{ group }}"
            mode: 0644
      - name: Create a symbolic link to sites-enabled
        file:
