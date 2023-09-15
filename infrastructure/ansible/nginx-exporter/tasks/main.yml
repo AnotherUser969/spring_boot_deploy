@@ -1,5 +1,9 @@
 ---
 # tasks file for nginx-exporter
+    - name: Create prometheus exporter group
+      group:
+          name: "{{ exporter_group }}"
+          state: present
     - name: Create prometheus exporter user
       user:
          name: "{{ exporter_user }}"
