@@ -22,9 +22,9 @@
           path: '/etc/nginx/dhparam.pem'
           size: 2048
   rescue:
-      name: Print with errors
-      debug:
-         msg: Some error in 'Generate a Self Signed OpenSSL certificate'
+     - name: Print with errors
+       debug:
+          msg: 'Some error in 'Generate a Self Signed OpenSSL certificate'
 
 - name: Configure the nginx
   block:
@@ -61,6 +61,6 @@
            name: nginx
            state: restarted
   rescue:
-     name: Print with errors
-     debug:
-       msg: Some error in 'Configure the nginx conf file'
+     - name: Print with errors
+       debug:
+          msg: 'Some error in 'Configure the nginx conf file'
