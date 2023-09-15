@@ -27,6 +27,7 @@
          dest: "/usr/local/bin/nginx_prometheus_exporter"
          owner: "{{ exporter_user }}"
          group: "{{ exporter_group }}"
+         remote_src: true
          mode: 0755
     
     - name: Remove
