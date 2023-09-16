@@ -61,14 +61,14 @@
            state: link
      - name: Copy self-signed.conf to snippets
        file:
-           src: self-signed.conf
+           src: 'self-signed.conf'
            dest: '/etc/nginx/snippets/self-signed.conf'
            owner: "{{ user }}"
            group: "{{ group }}"
            mode: 0644
      - name: Copy self-params.conf to snippets
        file:
-           src: self-params.conf
+           src: 'self-params.conf'
            dest: '/etc/nginx/snippets/ssl-params.conf'
            owner: "{{ user }}"
            group: "{{ group }}"
