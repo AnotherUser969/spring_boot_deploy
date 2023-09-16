@@ -1,9 +1,17 @@
 ---
 # tasks file for prometheus-grafana-compose
+    - name: Create dir for prometheus yml conf file
+      file:
+          path: /etc/prometheus
+          owner: "{{ user }}"
+          group: "{{ group }}"
+          mode: 0700
+          state: directory
+
     - name: Copy docker compose file
       copy:
          src: 'monitoring-compose.yml'
-         dest: '/home/{{ user }}'
+         dest: '/home/prometheus'
          owner: "{{ user }}"
          group: "{{ group }}"
          mode: 0700
