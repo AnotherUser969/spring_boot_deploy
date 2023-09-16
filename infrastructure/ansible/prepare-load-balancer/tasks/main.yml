@@ -3,7 +3,7 @@
 - name: Gather facts from application srevers
   setup:
   delegate_to: "{{ item }}"
-  delagate_facts: true
+  delegate_facts: true
   loop: "{{ groups['applications_servers'] }}"
   
 - name: Install Packages
