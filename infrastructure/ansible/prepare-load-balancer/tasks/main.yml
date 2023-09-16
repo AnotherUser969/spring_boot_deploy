@@ -16,11 +16,23 @@
 
 - name: Generate a Self Signed OpenSSL certificate
   block:
+     - name: Generate an OpenSSL private key with a different size (2048 bits)
+       openssl_privatekey:
+          path: /etc/ssl/private/nginx-selfsigned.key
+          size: 2048
+     - name: Generate an OpenSSL Certificate Signing Request with Subject information
+       openssl_csr:
+          path: /etc/ssl/certs/nginx-selfsigned.csr
+          privatekey_path: /etc/ssl/private/nginx-selfsigned.key
+          country_name: "{{ country_name }}"
+          organization_name: "{{ organization_name }}"
+          email_address: "{{ email_address }}"
+          common_name: "{{ common_name }}"  
      - name: Generate the csr and privatekey
        openssl_certificate:
           path: '/etc/ssl/certs/nginx-selfsigned.crt'
           privatekey_path: '/etc/ssl/private/nginx-selfsigned.key'
-          csr_path: '/etc/ssl/certs/nginx-selfsigned.crt'
+          csr_path: '/etc/ssl/certs/nginx-selfsigned.csr'
           provider: selfsigned
      - name: Generate DH Parameters with a different size (2048 bits)
        openssl_dhparam:
