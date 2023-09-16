@@ -1,13 +1,18 @@
 ---
 # tasks file for prometheus-grafana-compose
-    - name: Pull docker images
-      docker_compose:
-            project_src:
-            pull: yes
-            
+    - name: Copy docker compose file
+      copy:
+         scr: 'monitoring-compose.yml'
+         dest: '/home/{{ user }}'
+         owner: "{{ user }}"
+         group: "{{ group }}"
+         mode: 0700
+         
     - name: Run docker compose
       docker_compose:
-            project_src:
+            project_src: '/home/{{ user }}'
+            files:
+                - monitoring-compose.yml
        register: output
        
     - name: Show results
