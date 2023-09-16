@@ -64,5 +64,10 @@ pipeline {
 		}
 	     }
 	}
+	stage('Generate host file') {
+             steps {
+                sh label: '', script: 'bash ./infrastructure/scripts/generate_host_file.sh'
+	     }
+    }
     }
 }
