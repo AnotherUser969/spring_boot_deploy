@@ -13,7 +13,7 @@
             project_src: '/home/{{ user }}'
             files:
                 - monitoring-compose.yml
-       register: output
+      register: output
        
     - name: Show results
       debug:
