@@ -4,7 +4,7 @@
   setup:
   delegate_to: "{{ item }}"
   delegate_facts: true
-  loop: "{{ groups['applications_servers'] }}"
+  loop: "{{ groups['application_servers'] }}"
   
 - name: Install Packages
   apt:
