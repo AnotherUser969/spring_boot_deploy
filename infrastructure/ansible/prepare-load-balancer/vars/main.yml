@@ -2,3 +2,7 @@
 # vars file for prepare_server
 user: user
 group: user
+country_name: RU
+organization_name: some
+email_address: some@some.ru
+common_name: somename
