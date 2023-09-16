@@ -12,7 +12,7 @@
       - node-exporter
       - nginx-exporter
 
-- hosts: monotoring
+- hosts: monitoring
   become: yes
   roles:
       - install-docker
