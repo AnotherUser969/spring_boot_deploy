@@ -8,6 +8,14 @@
          mode: 0700
          state: directory
 
+    - name: Generate yml conf for prometheus
+      template:
+          src: 'prometheus.yml.j2'
+          dest: '/etc/prometheus'
+          owner: "{{ user }}"
+          group: "{{ group }}"
+          mode: 0700
+
     - name: Copy docker compose file
       copy:
          src: 'monitoring-compose.yml'
