@@ -1,4 +1,0 @@
----
-# vars file for prometheus-grafana-compose
-user: user
-group: user
