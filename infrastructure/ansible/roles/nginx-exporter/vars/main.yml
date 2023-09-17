@@ -1,0 +1,6 @@
+---
+# vars file for nginx-exporter
+exporter_user: exporter_user
+exporter_group: exporters
+nginx_exporter_version: 0.11.0
+service_name: nginx_exporter

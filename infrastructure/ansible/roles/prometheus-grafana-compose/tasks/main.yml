@@ -1,0 +1,33 @@
+---
+# tasks file for prometheus-grafana-compose
+    - name: Gather facts from all
+      setup:
+      delegate_to: "{{ groups['all'] }}"
+      delegate_facts: true
+
+    - name: Create dir for prometheus yml conf file
+      file:
+         path: /etc/prometheus
+         owner: "{{ user }}"
+         group: "{{ group }}"
+         mode: 0700
+         state: directory
+
+    - name: Copy docker compose file
+      copy:
+         src: 'monitoring-compose.yml'
+         dest: '/home/prometheus'
+         owner: "{{ user }}"
+         group: "{{ group }}"
+         mode: 0700
+         
+    - name: Run docker compose
+      docker_compose:
+            project_src: '/home/{{ user }}'
+            files:
+                - monitoring-compose.yml
+      register: output
+       
+    - name: Show results
+      debug:
+        var: output

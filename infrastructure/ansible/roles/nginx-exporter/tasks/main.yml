@@ -1,0 +1,51 @@
+---
+# tasks file for nginx-exporter
+    - name: Create prometheus exporter group
+      group:
+          name: "{{ exporter_group }}"
+          state: present
+          
+    - name: Create prometheus exporter user
+      user:
+         name: "{{ exporter_user }}"
+         groups: "{{ exporter_group }}"
+         append: true
+         shell: /usr/bin/noloogin
+         system: true
+         create_home: false
+    
+    - name: Download and unzip nginx_exporter
+      unarchive: 
+         src: "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v{{ nginx_exporter_version }}/nginx-prometheus-exporter_{{ nginx_exporter_version }}_linux_amd64.tar.gz"
+         dest: /tmp/
+         remote_src: true
+         validate_certs: false
+ 
+    - name:  Copy the bin to dest
+      copy:
+         src: "/tmp/nginx-prometheus-exporter"
+         dest: "/usr/local/bin/nginx-prometheus-exporter"
+         owner: "{{ exporter_user }}"
+         group: "{{ exporter_group }}"
+         remote_src: true
+         mode: 0755
+    
+    - name: Remove
+      file:
+         path: "/tmp/nginx-prometheus-exporter"
+         state: absent
+         
+    - name: Set nginx exporter service
+      template:
+          src: nginx_exporter.service.j2
+          dest: '/etc/systemd/system/{{ service_name }}.service'
+          owner: root
+          group: root
+          mode: 0755
+      notify: restart_nginx_exporter
+      
+    - name: Start service always
+      systemd:
+          name: "{{ service_name }}"
+          state: started
+          enabled: yes

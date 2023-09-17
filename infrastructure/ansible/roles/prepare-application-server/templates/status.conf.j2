@@ -1,0 +1,10 @@
+server {
+    listen 8080;
+    # Optionally: allow access only from localhost
+    # listen 127.0.0.1:8080;
+    server_name {{ ansible_default_ipv4.address }};
+
+    location /status {
+        stub_status;
+    }
+}
