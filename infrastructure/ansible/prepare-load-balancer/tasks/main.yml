@@ -1,6 +1,6 @@
 ---
 # tasks file for prepare_server
-- name: Gather facts from application srevers
+- name: Gather facts from application servers
   setup:
   delegate_to: "{{ item }}"
   delegate_facts: true
