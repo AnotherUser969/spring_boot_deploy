@@ -45,6 +45,13 @@
            owner: "{{ user }}"
            group: "{{ group }}"
            state: link
+     - name: Copy j2 template with nginx status
+       template:
+            src: 'status.conf.j2'
+            dest: '/etc/nginx/conf.d/status.conf'
+            owner: "{{ user }}"
+            group: "{{ group }}"
+            mode: 0644
      - name: Restart nginx
        service:
            name: nginx
