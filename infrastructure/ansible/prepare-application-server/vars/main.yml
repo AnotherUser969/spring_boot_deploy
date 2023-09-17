@@ -1,6 +1,0 @@
----
-# vars file for prepare_server
-user: user
-group: user
-service_name: java-application
-java_application_file: application.jar
