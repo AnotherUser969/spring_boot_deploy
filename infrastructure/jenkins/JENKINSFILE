@@ -68,6 +68,11 @@ pipeline {
              steps {
                 sh label: '', script: 'bash ./infrastructure/scripts/generate_host_file.sh'
 	     }
-    }
+        }
+	stage('Configure servers') {
+             steps {
+                 ansiblePlaybook playbook: './infrastructure/ansible/playbook.yml', inventory: './host', credentialsId: 'SSH_KEY'
+             }
+	}
     }
 }
