@@ -1,5 +1,10 @@
 ---
 # tasks file for prometheus-grafana-compose
+    - name: Gather facts from all
+      setup:
+      delegate_to: "{{ groups['all'] }}"
+      delegate_facts: true
+
     - name: Create dir for prometheus yml conf file
       file:
          path: /etc/prometheus
@@ -7,14 +12,6 @@
          group: "{{ group }}"
          mode: 0700
          state: directory
-
-    - name: Generate yml conf for prometheus
-      template:
-          src: 'prometheus.yml.j2'
-          dest: '/etc/prometheus'
-          owner: "{{ user }}"
-          group: "{{ group }}"
-          mode: 0700
 
     - name: Copy docker compose file
       copy:
