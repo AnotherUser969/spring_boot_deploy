@@ -67,8 +67,8 @@ pipeline {
 	stage('Configure servers') {
              steps {
                  //ansiblePlaybook playbook: './infrastructure/ansible/playbook.yml', inventory: './infrastructure/ansible/hosts', credentialsId: 'SSH_KEY'
-		  withCredentials([file(credentialsId: 'SSH_KEY', variable: 'SSH_KEY')]) {
-		        sh label: "", script: "ansible-playbook ./infrastructure/ansible/playbook.yml -i ./infrastructure/ansible/hosts --private-key $SSH_KEY"
+		  withCredentials([file(credentialsId: 'SSH_S', variable: 'SSH_S')]) {
+		        sh label: "", script: "ansible-playbook ./infrastructure/ansible/playbook.yml -i ./infrastructure/ansible/hosts --private-key $SSH_S"
 		  }
              }
 	}
