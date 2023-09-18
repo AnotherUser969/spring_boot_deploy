@@ -5,11 +5,6 @@ pipeline {
         maven "maven"
     }
     stages {
-        stage('Check SCM') {
-            steps {
-                git branch: 'main', url: 'https://github.com/AnotherUser969/spring_boot_deploy.git'
-            }
-        }
 	stage('Init') {
 	    steps {
 	    sh label: '', script: 'cp ./infrastructure/terraform/.terraformrc ~/.terraformrc'
