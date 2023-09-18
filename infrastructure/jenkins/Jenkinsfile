@@ -51,7 +51,7 @@ pipeline {
 	}
 	stage('Send artifacts') {
 	     steps {
-		sshagent(['SSH_APP_KEY']) {
+		sshagent(['SSH_KEY']) {
 	            sh label: '', script: '''
                     for host in $(terraform output -json | jq -r '.app_servers_ips.value.internal[][]'); do
                     scp -o StrictHostKeyChecking=no ./application/target/*.jar user@$host:~; done
