@@ -53,7 +53,7 @@ pipeline {
 	     steps {
 		sshagent(['SSH_KEY']) {
 	            sh label: '', script: '''
-                    for host in $(terraform output -json | jq -r '.app_servers_ips.value.internal[][]'); do
+                    for host in $(terraform -chdir="./infrastructure/terraform" output -json | jq -r '.app_servers_ips.value.internal[][]'); do
                     scp -o StrictHostKeyChecking=no ./application/target/*.jar user@$host:~; done
                     '''
 		}
