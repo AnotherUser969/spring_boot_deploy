@@ -4,3 +4,5 @@ users:
     groups: sudo
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8OiivjemgIyi/A5+12EoqyCFyivqL1H3roLdWnw1TQoJTtKxCCtPeahXnKj8+MhXAzhiSM3+teh9Kwty7PzaA6yTSws2ZQuRJunbWABb8tzizOL8Oap1dlUchDQxiCHkpStqY0WKywOjdmjW/Prmdi7fcwfBMxm823BHzvs2mb3UL1Alzm0mCzRLljh1x5b/N2ayrbN8/Ss3bTZS0AT6pjdV4N0ZeiK0vORknfX4b5xgZhfmDhYXcliZePtuaqm0cF2nQgcH+KGBapJCtb1Tdde4HH5RgBIuuDL0q5EXonYKuY85jXQ66hCiAnyaH4JiA27FvfHs2pB6jU6g3eW4tKL1sTyEXq5/CcITCS+AXKuCtK9xTveC2w4IxX/5K4yxtn+IbIuXsuAic7D7gkwJyJB1GeI6qf8pZ3ourrnivt/RbLgJHlMAnf3JvvE/j5VTYqChdTfwtpEwAVUI1LsoX4fXs72o/cdwPExIcxIzGDH10TFp5s2WiTCndrjY933M= user@jenkins
