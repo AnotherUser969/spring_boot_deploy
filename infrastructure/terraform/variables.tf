@@ -76,7 +76,7 @@ variable "instance_dist_size_lb" {
 }
 
 variable "network_id" {
-	default = "enpmhemvr7dl9oda2u6s"
+	default = "enpa61ssoc4b1abbkp6r"
 }
 
 variable "cird_net_block" {
