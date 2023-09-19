@@ -37,7 +37,7 @@ resource "yandex_compute_instance" "app_servers" {
     initialize_params {
 	  type = "network-hdd"
 	  size = "${var.instance_dist_size_app}"
-      image_id = "fd808e721rc1vt7jkd0o"
+      image_id = "fd830gae25ve4glajdsj"
     }
   }
 
@@ -67,7 +67,7 @@ resource "yandex_compute_instance" "monitoring" {
     initialize_params {
 	  type = "network-hdd"
 	  size = "${var.instance_dist_size_mon}"
-      image_id = "fd808e721rc1vt7jkd0o"
+      image_id = "fd830gae25ve4glajdsj"
     }
   }
 
@@ -97,7 +97,7 @@ resource "yandex_compute_instance" "load_balancer" {
     initialize_params {
 	  type = "network-hdd"
 	  size = "${var.instance_dist_size_lb}"
-      image_id = "fd808e721rc1vt7jkd0o"
+      image_id = "fd830gae25ve4glajdsj"
     }
   }
 
