@@ -1,3 +1,5 @@
 ---
 # vars file for install-docker
 arch: amd64
+user: user
+group: user
