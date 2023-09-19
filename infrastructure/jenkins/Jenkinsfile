@@ -61,15 +61,12 @@ pipeline {
 	}
 	stage('Generate host file') {
              steps {
-                sh label: '', script: 'bash ./infrastructure/scripts/generate_host_file.sh && mv ./hosts ./infrastructure/ansible'
+                sh label: '', script: 'bash ./infrastructure/scripts/generate_host_file.sh'
 	     }
         }
 	stage('Configure servers') {
              steps {
-                 //ansiblePlaybook playbook: './infrastructure/ansible/playbook.yml', inventory: './infrastructure/ansible/hosts', credentialsId: 'SSH_KEY'
-		  withCredentials([file(credentialsId: 'SSH_S', variable: 'SSH_S')]) {
-		        sh label: "", script: "ansible-playbook ./infrastructure/ansible/playbook.yml -i ./infrastructure/ansible/hosts --private-key $SSH_S"
-		  }
+		ansiblePlaybook become: true, credentialsId: 'SSH_KEY', disableHostKeyChecking: true, inventory: './infrastructure/ansible/playbook.yml', playbook: './hosts'
              }
 	}
     }
