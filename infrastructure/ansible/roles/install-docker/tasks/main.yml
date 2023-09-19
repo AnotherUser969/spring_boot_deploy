@@ -11,14 +11,6 @@
     - curl
     - gnupg
 
-- name: Create keyrings dir
-  file:
-     path: /etc/apt/keyrings
-     owner: "{{ user }}"
-     group: "{{ group }}"
-     mode: 0700
-     state: directory
-
 - name: Add Docker's official GPG key
   apt_key:
      url: https://download.docker.com/linux/ubuntu/gpg
