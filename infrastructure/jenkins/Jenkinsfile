@@ -66,7 +66,7 @@ pipeline {
         }
 	stage('Configure servers') {
              steps {
-		ansiblePlaybook become: true, credentialsId: 'SSH_KEY', disableHostKeyChecking: true, inventory: './infrastructure/ansible/playbook.yml', playbook: './hosts'
+		ansiblePlaybook become: true, credentialsId: 'SSH_KEY', disableHostKeyChecking: true, inventory: './hosts', playbook: './infrastructure/ansible/playbook.yml'
              }
 	}
     }
