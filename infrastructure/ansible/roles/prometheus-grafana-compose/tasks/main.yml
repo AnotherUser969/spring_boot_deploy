@@ -2,7 +2,7 @@
 # tasks file for prometheus-grafana-compose
     - name: Gather facts from all
       setup:
-      delegate_to: "{{ groups[default] }}"
+      delegate_to: "{{ groups['default'] }}"
       delegate_facts: true
 
     - name: Create dir for prometheus yml conf file
