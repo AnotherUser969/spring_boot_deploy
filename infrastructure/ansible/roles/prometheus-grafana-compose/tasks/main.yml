@@ -14,7 +14,7 @@
     - name: Copy docker compose file
       copy:
          src: 'monitoring-compose.yml'
-         dest: '/home/prometheus'
+         dest: '/home/{{ user }}/monitoring-compose.yml'
          owner: "{{ user }}"
          group: "{{ group }}"
          mode: 0700
