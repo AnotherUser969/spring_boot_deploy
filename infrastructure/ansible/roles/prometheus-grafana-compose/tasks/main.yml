@@ -10,6 +10,13 @@
          group: "{{ group }}"
          mode: 0700
          state: directory
+    - name: Copy j2 template with prometheus yml
+      template:
+         src: 'prometheus.yml.j2'
+         dest: '/etc/prometheus/prometheus.yml'
+         owner: "{{ user }}"
+         group: "{{ group }}"
+         mode: 0700
 
     - name: Copy docker compose file
       copy:
