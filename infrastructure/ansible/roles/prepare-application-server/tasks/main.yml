@@ -45,6 +45,10 @@
            owner: "{{ user }}"
            group: "{{ group }}"
            state: link
+     - name: Delete default nginx conf
+       file:
+            path: '/etc/nginx/sites-available/default'
+            state: absent
      - name: Copy j2 template with nginx status
        template:
             src: 'status.conf.j2'
