@@ -5,6 +5,6 @@ After=network-online.target
 User={{ exporter_user }}
 Group={{ exporter_group }}
 Type=simple
-ExecStart=/usr/local/bin/nginx-prometheus-exporter -nginx.scrape-uri=http://127.0.0.1:8080/stub_status
+ExecStart=/usr/local/bin/nginx-prometheus-exporter -nginx.scrape-uri=http://127.0.0.1:8080/status
 [Install]
 WantedBy=multi-user.target
