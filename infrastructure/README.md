@@ -19,6 +19,7 @@ sudo apt install jq unzip -y
 sudo wget https://hashicorp-releases.yandexcloud.net/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip -P /opt
 # Распаковка и удаление исходного архива
 sudo unzip /opt/terraform_1.5.7_linux_amd64.zip && sudo rm /opt/terraform_1.5.7_linux_amd64.zip
+```
 
 Далее на сервере jenkins необходимо загрузить следующие плагины:
 - terraform
