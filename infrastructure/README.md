@@ -19,10 +19,41 @@ sudo apt install jq unzip -y
 sudo wget https://hashicorp-releases.yandexcloud.net/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip -P /opt
 # Распаковка и удаление исходного архива
 sudo unzip /opt/terraform_1.5.7_linux_amd64.zip && sudo rm /opt/terraform_1.5.7_linux_amd64.zip
+````
 
-```
-
-Далее на сервере jenkins необходимо загрузить следующие плагины:
+На сервере jenkins необходимо загрузить следующие плагины:
 - terraform
 - asnible
 - sshagent
+
+И добавить необходимые credentials:
+- SA_ACCESS_KEY (идентификатор ключа в облаке)
+- SA_SECRET_KEY (секретный ключ в облаке)
+- KEY_FILE (авторизованный ключ для сервисного аккаунта)
+- SSH_KEY (ssh ключ и логин для созданный инстансов)
+
+Установка yandex cli:
+````
+curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+````
+Инициализация в облаке:
+````
+yc init
+````
+Получение ACCESS_KEY и SECRET_KEY:
+````
+yc iam access-key create --service-account-name sa-terraform \
+  --description "this key is for my bucket"
+````
+Получение ключа для сервисного аккаунта:
+Вывести список аккаунтов:
+````
+yc iam service-account list
+````
+Создание ключа:
+````
+yc iam key create \
+  --service-account-id "<id сервисного аккаунта>" \
+  --folder-name "<имя папки в облаке>" \
+  --output key.json
+````
