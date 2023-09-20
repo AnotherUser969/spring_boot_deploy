@@ -46,6 +46,7 @@ yc iam access-key create --service-account-name sa-terraform \
   --description "this key is for my bucket"
 ````
 Получение ключа для сервисного аккаунта:
+
 Вывести список аккаунтов:
 ````
 yc iam service-account list
