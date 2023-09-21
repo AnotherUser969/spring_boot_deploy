@@ -15,11 +15,11 @@ pipeline {
 	stage('Init') {
 	    steps {
 	    sh label: '', script: 'cp ./infrastructure/terraform/.terraformrc ~/.terraformrc'
-	    //withCredentials(
-	        //[string(credentialsId: 'SA_ACCESS_KEY', variable: 'ACCESS_KEY'), 
-	        //string(credentialsId: 'SA_SECRET_KEY', variable: 'SECRET_KEY')]) {
-                sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config='access_key=$SA_ACCESS_KEY' -backend-config='secret_key=$SA_SECRET_KEY' -no-color'
-            //}
+	    withCredentials(
+	        [string(credentialsId: 'SA_ACCESS_KEY', variable: 'ACCESS_KEY'), 
+	        string(credentialsId: 'SA_SECRET_KEY', variable: 'SECRET_KEY')]) {
+                sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config="access_key=$SA_ACCESS_KEY" -backend-config="secret_key=$SA_SECRET_KEY" -no-color'
+            }
 	    }
 	}
 	stage('Plan') {
