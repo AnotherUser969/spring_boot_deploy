@@ -3,8 +3,8 @@ pipeline {
     parameters {
         credentials credentialType: 'org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl', defaultValue: '', description: 'SA_ACCESS_KEY (идентификатор ключа в облаке)', name: 'SA_ACCESS_KEY', required: true
   	credentials credentialType: 'org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl', defaultValue: '', description: 'SA_SECRET_KEY (секретный ключ в облаке)', name: 'SA_SECRET_KEY', required: true
-  	credentials credentialType: 'org.jenkinsci.plugins.plaincredentials.impl.FileCredentialsImpl', defaultValue: '', description: 'KEY_FILE (авторизованный ключ для сервисного аккаунта)', name: 'SA_SECRET_KEY', required: true
-  	credentials credentialType: 'com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey', defaultValue: '', description: 'SSH_KEY (ssh ключ и логин для созданный инстансов)', name: 'SA_SECRET_KEY', required: true  
+  	credentials credentialType: 'org.jenkinsci.plugins.plaincredentials.impl.FileCredentialsImpl', defaultValue: '', description: 'KEY_FILE (авторизованный ключ для сервисного аккаунта)', name: 'KEY_FILE', required: true
+  	credentials credentialType: 'com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey', defaultValue: '', description: 'SSH_KEY (ssh ключ и логин для созданный инстансов)', name: 'SSH_KEY', required: true  
   	string description: 'ID сети, в которой будет находиться созданные ВМ', name: 'NETWORK_ID', trim: true 
     }
     tools {
