@@ -18,7 +18,7 @@ pipeline {
 	    withCredentials(
 	        [string(credentialsId: 'SA_ACCESS_KEY', variable: 'ACCESS_KEY'), 
 	        string(credentialsId: 'SA_SECRET_KEY', variable: 'SECRET_KEY')]) {
-                sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config="access_key=$SA_ACCESS_KEY" -backend-config="secret_key=$SA_SECRET_KEY" -no-color'
+                sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY" -no-color'
             }
 	    }
 	}
