@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+    tools {
+        terraform "terraform"
+        maven "maven"
+    }
+    stages {
+	stage('Init') {
+	    steps {
+	    sh label: '', script: 'cp ./infrastructure/terraform/.terraformrc ~/.terraformrc'
+	    withCredentials(
+	        [string(credentialsId: 'SA_ACCESS_KEY', variable: 'ACCESS_KEY'), 
+	        string(credentialsId: 'SA_SECRET_KEY', variable: 'SECRET_KEY')]) {
+                sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY" -no-color'
+            }
+	    }
+	}
+	stage('Plan') {
+	    steps {
+	        withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
+	            sh label: '', script: 'terraform -chdir="./infrastructure/terraform" plan -var="service_account_key_file=$SERVICE_ACCOUNT_KEY_FILE" -no-color'
+            }
+	    }
+	}
+	stage('Validate Apply') {
+	    input {
+	        message "Do you want to apply this plan?"
+	        ok "Apply plan"
+	    }
+	    steps {
+	        sh label: '', script: 'echo Apply accepted'
+	    }
+	}
+	stage('Apply') {
+	    steps {
+		withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
+	        	sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -var="service_account_key_file=$SERVICE_ACCOUNT_KEY_FILE" -auto-approve -no-color'
+	    }
+	    }
+	}
+	stage('Build') {
+	    steps {
+		sh "mvn -f ./application clean package"
+	    }
+            post {
+                success {
+                    junit '**/application/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'application/target/*.jar'
+                }
+            }
+	}
+	stage('Send artifacts') {
+	     steps {
+		sshagent(['SSH_KEY']) {
+	            sh label: '', script: '''
+                    for host in $(terraform -chdir="./infrastructure/terraform" output -json | jq -r '.app_servers_ips.value.internal[][]'); do
+                    scp -o StrictHostKeyChecking=no ./application/target/*.jar user@$host:~/application.jar; done
+                    '''
+		}
+	     }
+	}
+	stage('Generate host file') {
+             steps {
+                sh label: '', script: 'bash ./infrastructure/scripts/generate_host_file.sh'
+	     }
+        }
+	stage('Configure servers') {
+             steps {
+		ansiblePlaybook become: true, credentialsId: 'SSH_KEY', disableHostKeyChecking: true, inventory: './hosts', playbook: './infrastructure/ansible/playbook.yml'
+             }
+	}
+    }
+}
