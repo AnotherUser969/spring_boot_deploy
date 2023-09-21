@@ -18,14 +18,14 @@ pipeline {
 	    //withCredentials(
 	        //[string(credentialsId: 'SA_ACCESS_KEY', variable: 'ACCESS_KEY'), 
 	        //string(credentialsId: 'SA_SECRET_KEY', variable: 'SECRET_KEY')]) {
-                sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config="access_key=$SA_ACCESS_KEY" -backend-config="secret_key=$SA_SECRET_KEY" -no-color'
+                sh label: '', script: 'terraform -chdir="./infrastructure/terraform" init -backend-config="access_key=SA_ACCESS_KEY" -backend-config="secret_key=SA_SECRET_KEY" -no-color'
             //}
 	    }
 	}
 	stage('Plan') {
 	    steps {
 	        //withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
-	            sh label: '', script: 'terraform -chdir="./infrastructure/terraform" plan -var="service_account_key_file=$KEY_FILE" -var="network_id=$NETWORK_ID" -no-color'
+	            sh label: '', script: 'terraform -chdir="./infrastructure/terraform" plan -var="service_account_key_file=KEY_FILE" -var="network_id=$NETWORK_ID" -no-color'
             //}
 	    }
 	}
@@ -41,7 +41,7 @@ pipeline {
 	stage('Apply') {
 	    steps {
 		//withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
-	        	sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -var="service_account_key_file=$KEY_FILE" -var="network_id=$NETWORK_ID" -auto-approve -no-color'
+	        	sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -var="service_account_key_file=KEY_FILE" -var="network_id=NETWORK_ID" -auto-approve -no-color'
 	    //}
 	    }
 	}
@@ -58,7 +58,7 @@ pipeline {
 	}
 	stage('Send artifacts') {
 	     steps {
-		sshagent(['$SSH_KEY']) {
+		sshagent(['SSH_KEY']) {
 	            sh label: '', script: '''
                     for host in $(terraform -chdir="./infrastructure/terraform" output -json | jq -r '.app_servers_ips.value.internal[][]'); do
                     scp -o StrictHostKeyChecking=no ./application/target/*.jar user@$host:~/application.jar; done
@@ -73,7 +73,7 @@ pipeline {
         }
 	stage('Configure servers') {
              steps {
-		ansiblePlaybook become: true, credentialsId: '$SSH_KEY', disableHostKeyChecking: true, inventory: './hosts', playbook: './infrastructure/ansible/playbook.yml'
+		ansiblePlaybook become: true, credentialsId: 'SSH_KEY', disableHostKeyChecking: true, inventory: './hosts', playbook: './infrastructure/ansible/playbook.yml'
              }
 	}
     }
