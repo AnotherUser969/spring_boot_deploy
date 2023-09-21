@@ -24,9 +24,9 @@ pipeline {
 	}
 	stage('Plan') {
 	    steps {
-	        //withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
-	            sh label: '', script: 'terraform -chdir="./infrastructure/terraform" plan -var="service_account_key_file=$KEY_FILE" -var="network_id=$NETWORK_ID" -no-color'
-            //}
+	        withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
+	            sh label: '', script: 'terraform -chdir="./infrastructure/terraform" plan -var="service_account_key_file=$SERVICE_ACCOUNT_KEY_FILE" -var="network_id=$NETWORK_ID" -no-color'
+            }
 	    }
 	}
 	stage('Validate Apply') {
@@ -40,9 +40,9 @@ pipeline {
 	}
 	stage('Apply') {
 	    steps {
-		//withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
-	        	sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -var="service_account_key_file=KEY_FILE" -var="network_id=NETWORK_ID" -auto-approve -no-color'
-	    //}
+		withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
+	        	sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -var="service_account_key_file=$SERVICE_ACCOUNT_KEY_FILE" -var="network_id=$NETWORK_ID" -auto-approve -no-color'
+	    }
 	    }
 	}
 	stage('Build') {
